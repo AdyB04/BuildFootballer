@@ -1,13 +1,13 @@
 // Player pool. Ratings are rough, hand-made estimates of each player at their peak (0–99).
 // Attributes: pac (pace), sho (shooting), pas (passing), dri (dribbling), def (defending),
 // phy (physical), men (mentality / big-game composure), hgt (height in cm).
-// pos: primary role group used for position-fit bonuses — FW, MF, DF, GK.
+// pos: role group — FW, MF, DF, GK. wiki: Wikipedia page title when it differs from name (used for photos).
 window.PLAYERS = [
   { name: "Lionel Messi",        nat: "ARG", pos: "FW", pac: 89, sho: 94, pas: 93, dri: 98, def: 38, phy: 66, men: 96, hgt: 170 },
   { name: "Cristiano Ronaldo",   nat: "POR", pos: "FW", pac: 93, sho: 96, pas: 82, dri: 90, def: 35, phy: 86, men: 97, hgt: 187 },
   { name: "Kylian Mbappé",       nat: "FRA", pos: "FW", pac: 98, sho: 91, pas: 81, dri: 93, def: 36, phy: 78, men: 90, hgt: 178 },
   { name: "Erling Haaland",      nat: "NOR", pos: "FW", pac: 90, sho: 95, pas: 66, dri: 80, def: 45, phy: 92, men: 88, hgt: 195 },
-  { name: "Ronaldo Nazário",     nat: "BRA", pos: "FW", pac: 96, sho: 95, pas: 78, dri: 96, def: 30, phy: 84, men: 90, hgt: 183 },
+  { name: "Ronaldo Nazário", wiki: "Ronaldo (Brazilian footballer)",     nat: "BRA", pos: "FW", pac: 96, sho: 95, pas: 78, dri: 96, def: 30, phy: 84, men: 90, hgt: 183 },
   { name: "Thierry Henry",       nat: "FRA", pos: "FW", pac: 95, sho: 92, pas: 84, dri: 92, def: 40, phy: 80, men: 89, hgt: 188 },
   { name: "Zlatan Ibrahimović",  nat: "SWE", pos: "FW", pac: 80, sho: 93, pas: 82, dri: 88, def: 38, phy: 91, men: 95, hgt: 195 },
   { name: "Robert Lewandowski",  nat: "POL", pos: "FW", pac: 80, sho: 94, pas: 80, dri: 86, def: 42, phy: 84, men: 90, hgt: 185 },
@@ -19,7 +19,7 @@ window.PLAYERS = [
   { name: "Arjen Robben",        nat: "NED", pos: "FW", pac: 93, sho: 88, pas: 81, dri: 92, def: 32, phy: 66, men: 85, hgt: 180 },
   { name: "Vinícius Júnior",     nat: "BRA", pos: "FW", pac: 96, sho: 84, pas: 80, dri: 93, def: 30, phy: 68, men: 87, hgt: 176 },
   { name: "Didier Drogba",       nat: "CIV", pos: "FW", pac: 85, sho: 89, pas: 72, dri: 80, def: 40, phy: 93, men: 96, hgt: 189 },
-  { name: "Adama Traoré",        nat: "ESP", pos: "FW", pac: 97, sho: 62, pas: 66, dri: 87, def: 35, phy: 88, men: 64, hgt: 178 },
+  { name: "Adama Traoré", wiki: "Adama Traoré (footballer, born 1996)",        nat: "ESP", pos: "FW", pac: 97, sho: 62, pas: 66, dri: 87, def: 35, phy: 88, men: 64, hgt: 178 },
   { name: "Peter Crouch",        nat: "ENG", pos: "FW", pac: 55, sho: 78, pas: 70, dri: 72, def: 38, phy: 72, men: 78, hgt: 201 },
 
   { name: "Zinedine Zidane",     nat: "FRA", pos: "MF", pac: 78, sho: 85, pas: 95, dri: 96, def: 60, phy: 82, men: 94, hgt: 185 },
@@ -35,7 +35,7 @@ window.PLAYERS = [
   { name: "N'Golo Kanté",        nat: "FRA", pos: "MF", pac: 80, sho: 66, pas: 79, dri: 82, def: 89, phy: 85, men: 88, hgt: 168 },
   { name: "Patrick Vieira",      nat: "FRA", pos: "MF", pac: 76, sho: 72, pas: 82, dri: 80, def: 87, phy: 92, men: 92, hgt: 193 },
   { name: "Jude Bellingham",     nat: "ENG", pos: "MF", pac: 80, sho: 84, pas: 85, dri: 88, def: 75, phy: 84, men: 93, hgt: 186 },
-  { name: "Rodri",               nat: "ESP", pos: "MF", pac: 64, sho: 78, pas: 90, dri: 84, def: 87, phy: 84, men: 92, hgt: 191 },
+  { name: "Rodri", wiki: "Rodri (footballer, born 1996)",               nat: "ESP", pos: "MF", pac: 64, sho: 78, pas: 90, dri: 84, def: 87, phy: 84, men: 92, hgt: 191 },
   { name: "Paul Scholes",        nat: "ENG", pos: "MF", pac: 68, sho: 86, pas: 93, dri: 84, def: 62, phy: 66, men: 88, hgt: 168 },
   { name: "Claude Makélélé",     nat: "FRA", pos: "MF", pac: 70, sho: 52, pas: 78, dri: 76, def: 90, phy: 78, men: 88, hgt: 170 },
 
@@ -57,6 +57,6 @@ window.PLAYERS = [
   { name: "Manuel Neuer",        nat: "GER", pos: "GK", pac: 60, sho: 40, pas: 86, dri: 60, def: 62, phy: 86, men: 94, hgt: 193 },
   { name: "Iker Casillas",       nat: "ESP", pos: "GK", pac: 58, sho: 30, pas: 68, dri: 48, def: 58, phy: 74, men: 93, hgt: 185 },
   { name: "Peter Schmeichel",    nat: "DEN", pos: "GK", pac: 52, sho: 38, pas: 72, dri: 40, def: 60, phy: 92, men: 95, hgt: 191 },
-  { name: "Alisson",             nat: "BRA", pos: "GK", pac: 56, sho: 35, pas: 84, dri: 52, def: 58, phy: 82, men: 90, hgt: 193 },
-  { name: "Ederson",             nat: "BRA", pos: "GK", pac: 62, sho: 50, pas: 92, dri: 58, def: 55, phy: 80, men: 84, hgt: 188 },
+  { name: "Alisson", wiki: "Alisson Becker",             nat: "BRA", pos: "GK", pac: 56, sho: 35, pas: 84, dri: 52, def: 58, phy: 82, men: 90, hgt: 193 },
+  { name: "Ederson", wiki: "Ederson (footballer, born 1993)",             nat: "BRA", pos: "GK", pac: 62, sho: 50, pas: 92, dri: 58, def: 55, phy: 80, men: 84, hgt: 188 },
 ];

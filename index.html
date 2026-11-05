@@ -5,30 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Build-a-Footballer</title>
   <meta name="description" content="Build a footballer one attribute at a time from real players, then simulate their career." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="pitch-bg" aria-hidden="true"></div>
   <header class="top">
     <h1>Build-a-<span>Footballer</span></h1>
+    <p class="tagline">Steal one stat from each legend. Find out if you're S-tier.</p>
   </header>
 
   <main>
     <!-- START -->
     <section id="start" class="screen">
-      <p class="lead">You get dealt one footballer at a time. Take <strong>one</strong> attribute from each and fill all 8 slots. Then we simulate your player's whole career.</p>
-      <div class="mode">
-        <label><input type="radio" name="mode" value="random" /> Random</label>
-        <label><input type="radio" name="mode" value="daily" /> Daily challenge <small id="daily-date"></small></label>
+      <div class="start-panel">
+        <label class="name-field">
+          <span>Your player's name</span>
+          <span class="name-row"><input id="player-name" maxlength="40" autocomplete="off" /><button id="reroll-name" class="ghost" title="Random name" type="button">🎲</button></span>
+        </label>
+        <div class="mode">
+          <label><input type="radio" name="mode" value="random" /> 🔀 Random</label>
+          <label><input type="radio" name="mode" value="daily" /> 📅 Daily challenge <small id="daily-date"></small></label>
+        </div>
       </div>
+
       <h2>Choose a position</h2>
       <div id="positions" class="positions"></div>
+
+      <div class="legend-wrap">
+        <h3>Grades</h3>
+        <div id="grade-legend" class="legend"></div>
+      </div>
+
       <details class="rules">
         <summary>How it works</summary>
         <ul>
-          <li>Each turn you're dealt a random player. Tap one of their stats to lock it into your build.</li>
+          <li>Each turn you're dealt a real footballer. Tap one of their stats to lock it into your build.</li>
           <li>Each slot can only be filled once, so you sometimes have to settle for a weaker stat.</li>
           <li>You get 2 skips per game to pass on a player.</li>
-          <li>Your position decides which stats matter most for your overall rating.</li>
+          <li>Your position decides how much each stat counts toward your overall. Each stat shows its share.</li>
+          <li>Every stat, your overall, each season and your whole career get a grade from <b>S</b> down to <b>F</b>.</li>
           <li>Your career runs from age 18 to retirement: form, injuries, transfers, trophies and Ballon d'Ors.</li>
           <li>Daily challenge: everyone gets the same players for each position today.</li>
         </ul>
@@ -38,41 +56,57 @@
     <!-- DRAFT -->
     <section id="draft" class="screen">
       <div class="draft-bar">
-        <span id="draft-pos" class="tag"></span>
-        <span id="draft-round"></span>
+        <span id="draft-pos" class="tag pos-tag"></span>
+        <b id="draft-name"></b>
+        <span id="draft-round" class="muted"></span>
         <button id="skip-btn" class="ghost"></button>
       </div>
+      <div class="progress"><i id="draft-progress"></i></div>
       <div class="draft-grid">
         <div id="dealt" class="card"></div>
         <div class="panel">
-          <div class="panel-head"><h3>Your player</h3><div class="mini-ovr">OVR <b id="build-ovr">—</b></div></div>
+          <div class="panel-head"><h3>Your build</h3><div class="mini-ovr">OVR <span id="build-ovr">—</span></div></div>
           <div id="build" class="slots"></div>
+          <h3 class="sub">Dealt so far</h3>
+          <div id="passed" class="chips"></div>
         </div>
       </div>
     </section>
 
     <!-- RESULTS -->
     <section id="results" class="screen">
-      <div class="res-hero">
-        <div id="res-ovr" class="big-ovr"></div>
-        <div>
-          <div class="tag" id="res-pos"></div>
+      <div id="res-hero" class="res-hero">
+        <div class="mosaic-wrap">
+          <div id="res-mosaic" class="mosaic"></div>
+          <span id="res-number" class="shirt-number"></span>
+        </div>
+        <div class="hero-info">
+          <div class="tag pos-tag" id="res-pos"></div>
+          <div class="hero-name" id="res-name"></div>
+          <div id="res-ovr" class="hero-ovr"></div>
           <h2 id="res-title"></h2>
           <p id="res-blurb"></p>
-          <p class="similar">Plays like: <b id="res-similar"></b></p>
+          <p class="similar">Plays like <span id="res-similar"></span></p>
         </div>
+        <div id="res-career-grade" class="career-grade"></div>
       </div>
+
+      <p id="res-legacy" class="legacy"></p>
       <div id="res-stats" class="tallies"></div>
+
       <div class="res-grid">
         <div class="panel">
           <h3>The build</h3>
+          <div id="res-radar" class="radar"></div>
           <div id="res-build" class="slots"></div>
         </div>
         <div class="panel">
-          <h3>Career</h3>
+          <h3>Rating by age</h3>
+          <div id="res-chart" class="chart"></div>
+          <h3 class="sub">Season by season</h3>
           <div class="table-wrap">
             <table id="res-seasons">
-              <thead><tr><th>Age</th><th>OVR</th><th>Club level</th><th>Apps</th><th>G</th><th>A</th><th>Honours</th></tr></thead>
+              <thead><tr><th>Age</th><th>OVR</th><th>Club</th><th>Apps</th><th>G</th><th>A</th><th>Honours</th></tr></thead>
               <tbody></tbody>
             </table>
           </div>
@@ -80,13 +114,13 @@
       </div>
       <div class="actions">
         <button id="again-btn">New player</button>
-        <button id="resim-btn" class="ghost">Re-simulate career</button>
+        <button id="resim-btn" class="ghost">🔄 Re-simulate career</button>
         <button id="copy-btn" class="ghost">Copy result</button>
       </div>
     </section>
   </main>
 
-  <footer>Stats are rough, hand-made estimates of each player at their peak. Just for fun.</footer>
+  <footer>Stats are rough, hand-made estimates of each player at their peak. Clubs in the career are fictional. Photos load from Wikipedia / Wikimedia Commons. Just for fun.</footer>
 
   <script src="players.js"></script>
   <script src="game.js"></script>
